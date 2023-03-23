@@ -6,22 +6,52 @@
 
     class RolesController extends Roles{
 
-        public function insertRoles(){
+        //fonctions qui ajoute un role en BDD
+
+        public function insertRoles():void{
+
+            //variable pour stocker les messages d'erreur
+
+            $msg = "";
+
+            // tester si formulaire submit
 
             if (isset($_POST['submit']))
+
             {
-                $nom_roles = Fonctions::cleanInput($_POST['nom_roles']);
+                //nettoyer les imputs
 
-                if(!empty($nom_roles))
+                $nom = Fonctions::cleanInput($_POST['nom_roles']);
+
+                //tester si les champs sont remplis
+
+                if(!empty($nom))
                 {
-                    $this->setNomRoles($nom_roles);
-                    var_dump($nom_roles);
-                    $this->addRoles();
+                    //setter les valeurs a l'objet
 
-                }else{
+                    $this->setNomRoles($nom);
+                    var_dump($nom);
+                    if($this->getRolesByName()){
+                        $msg="le role existe deja";
+                    }else{
+                        $this->addRoles();
+
+                        //afficher la confirmation
+    
+                        $msg = " le role : ".$nom." a bien été ajouter en BDD ";
+    
+                    }
+
+                    // ajouter le nouveau role
+
                 
+                }else{
+                    $msg = ' Veuillez remplir tout les champs';
                 }
             }
+
+            //importer la vue
+
             include './App/Vue/viewAddRoles.php';
         }
     }

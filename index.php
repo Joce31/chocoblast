@@ -1,4 +1,6 @@
 <?php
+    //demarrage de la session
+    session_start();
     //chemin vers l'ajout de utilisateur
     use App\Controller\UserController;
     use App\controller\RolesController;
@@ -13,7 +15,9 @@
     $url = parse_url($_SERVER['REQUEST_URI']);
     //test soit l'url a une route sinon on renvoi à la racine
     $path = isset($url['path']) ? $url['path'] : '/';
-    //instance des controllers
+
+    //instance des controllers NE PAS OUBLIER D'INSTANCER LES CONTROLLER POUR FAIRE FONCTIONNER LA FONCTION QUE L'ON VA APPELER
+
     $userController = new UserController();
     $rolesController = new RolesController();
     
@@ -29,6 +33,15 @@
         case '/chocoblast/rolesAdd':
             $rolesController->insertRoles();
             break;
+        case '/chocoblast/connexion':
+            $userController->ConnexionUser();
+            break;
+        // case '/chocoblast/chocoAdd':
+        //      $chocoblastController->insertChoco();
+        //      break;
+        // case '/chocoblast/commentaireAdd':
+        //     $commentaireController->insertCommentaire();
+        //     break;
         default:
             include './App/Vue/error.php'; // nous envoi sur une page d'erreur si la page n'existe pas
             break;
