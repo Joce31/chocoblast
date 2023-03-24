@@ -62,61 +62,63 @@
                 else{
                     $msg = "Veuillez remplir tous les champs du formulaire";
                 }
-            
-            
             }
             //importer la vue
             include './App/Vue/viewAddUser.php';
-        
         }
-
-        // fonction qui va gerer la connexion avec le mail
-        public function ConnexionUser()
-        {
+        //Fonction pour se connecter au site
+        public function connexionUser(){
+            //variable pour stocker les messages d'erreurs
             $msg = "";
             $valide = "";
-            //tester si formulaire submit
-            if(isset($_POST['submit']))
-            {  
-                //nettoyer les imputs
-                $mail = Fonctions::cleanInput($_POST['mail_utilisateur']);
+            //Tester si le formulaire est submit
+            if(isset($_POST['submit'])){
+                //Nettoyer les inputs utilisateur
+                $mail = Fonctions::cleanInput($_POST['mail_utilisateur']); 
                 $password = Fonctions::cleanInput($_POST['password_utilisateur']);
-                //tester si les champs sont remplis
-                if(!empty($mail) AND !empty($password))
-                {
-                    //setter les valeurs de l'objet
+                //Tester si les champs sont remplis
+                if(!empty($mail) AND !empty($password)){
+                    //Setter les valeurs à l'objet
                     $this->setMailUtilisateur($mail);
                     $this->setPasswordUtilisateur($password);
-                    $data = $this->getUserByMail(); //stocker le compte si il existe
-
-                    if($data)
-                    {
-
-                        if(password_verify($password,$data[0]->password_utilisateur))  // $password(mot de passe hashe et $data[0] renvoie la version en clair du pass)
-                        {
+                    //Stokage du compte si il existe
+                    $data = $this->getUserByMail();
+                    //Tester si le compte existe
+                    if($data){
+                        //Test si le mot de passe est valide
+                        if(password_verify($password, $data[0]->password_utilisateur)){
+                            //Créer les super globales de Session
                             $_SESSION['connected'] = true;
-                            $_SESSION['mail'] = $data[0]->mail_utilisateur;  // $data[0] renvoie la version en clair)
-                            $_SESSION['id'] = $data[0]->id_utilisateur;
                             $_SESSION['nom'] = $data[0]->nom_utilisateur;
                             $_SESSION['prenom'] = $data[0]->prenom_utilisateur;
+                            $_SESSION['mail'] = $data[0]->mail_utilisateur;
+                            $_SESSION['id'] = $data[0]->id_utilisateur;
                             $valide ="connecté";
-                        }else
-                        {
-                        $msg = "Les informations sont incorrectes";
+                        }
+                        //Test si le mot de passe est incorrect
+                        else{
+                            $msg = "Les informations de connexion sont invalides";
                         }
                     }
+                    //Test si le compte n'existe pas
                     else{
-                        $msg = "Les informations sont incorrectes";
+                        $msg = "Les informations de connexion sont invalides";
                     }
                 }
-                //sinon si les champs ne sont pas tous remplis
+                //Test les champs sont vides
                 else{
-                        $msg = "Veuillez remplir tous les champs du formulaire";
-                }
+                    $msg = "Veuillez remplir tous les champs de formulaire";
+                } 
             }
-                //importer la vue
-                include './App/Vue/viewConnexion.php';
+            //import de la vue connexion
+            include './App/Vue/ViewConnexion.php';
         }
-}
+        public function deconnexionUser(){
+            //Détruire la session
+            session_destroy();
+            //Rediriger vers la page d'accueil
+            header('Location: ./');
+        } 
 
+    }
 ?>

@@ -25,5 +25,10 @@
         </form>
         <div id="error"><?php echo $msg; ?></div>
     </div>
+
+
+
+
+    <?php include './App/Vue/viewFooter.php';?>
 </body>
 </html>

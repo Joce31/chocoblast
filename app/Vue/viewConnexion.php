@@ -8,7 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-        <!--import du menu --> // ne pas oublier sur chaque page
+        <!--import du menu//ne pas oublier sur chaque page --> 
+
         <?php include './App/Vue/viewMenu.php';?>
 
 <div class="form">
@@ -22,9 +23,9 @@
 
 
 </form>
-<div id="error"><?php echo $msg; ?></div>
+<div id="error"><?php echo $valide; ?></div>
 </div>
-    
+<?php include './App/Vue/viewFooter.php';?>
 </body>
 </html>
 

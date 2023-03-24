@@ -13,6 +13,6 @@
     
     <h1 id="titre_accueil">Bienvenue sur Chocoblast</h1>
 
-
+    <?php include './App/Vue/viewFooter.php';?>
 </body>
 </html>

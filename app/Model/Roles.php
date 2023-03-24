@@ -69,5 +69,9 @@
                 die('Erreur : '.$e->getMessage());
             }
         }
+        public function __toString():string
+        {
+            return $this->nom_roles;
+        }
     }
 ?>

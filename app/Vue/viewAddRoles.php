@@ -25,6 +25,6 @@
     </div>
 
 
-
+    <?php include './App/Vue/viewFooter.php';?>
 </body>
 </html>

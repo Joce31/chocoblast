@@ -34,6 +34,9 @@ input, label, h3{
     width: 30vw;
     font-size: 1.3em;
 }
+input[type=submit]{
+    margin-top: 4vh;
+}
 #titre_accueil{
     display: flex;
     justify-content: space-evenly;

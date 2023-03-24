@@ -40,6 +40,9 @@
         public function getPasswordUtilisateur():?string{
             return $this->password_utilisateur;
         }
+        public function setIdUtilisateur(?int $id):void{
+            $this->id_utilisateur = $id;
+        }
         public function setNomUtilisateur(?string $name):void{
             $this->nom_utilisateur = $name;
         }
@@ -110,5 +113,27 @@
                 die('Erreur : '.$e->getMessage());
             }
         }
+
+        //methode qui retourne les users
+        public function getUserAll():?array
+        {
+            //preapre la requete
+            try
+            {
+                
+                $req = $this->connexion()->prepare ('SELECT id_utilisateur, nom_utilisateur, mail_utilisateur, image_utilisateur FROM utilisateur');
+                $req -> execute();
+                $data = $req->fetcHAll(\PDO::FETCH_OBJ);
+                return $data;
+            }
+            catch(\Exception $e){
+                die('Erreur : '.$e->getMessage());
+        }
+    }   //methode toString
+        public function __toString():string
+        {
+            return $this->nom_utilisateur;
+        }
     }
+
 ?>

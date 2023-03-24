@@ -1,10 +1,11 @@
 <?
     // namespace App\Controller;
-    // use App\model\commentaire;
+    // use App\Model\commentaire;
+    // use App\Utils\BddConnect;
     // use App\Utils\Fonctions;
 
 
-    // class CommentaireController extends commentaire{
+    // class CommentaireController extends BddConnect{
         
     // }
 ?>
